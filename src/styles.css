@@ -1,0 +1,133 @@
+/* 组件级样式：作用域用类名前缀隔离，避免污染全局 */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 顶栏：标题 + 分组筛选 + MCP 状态 */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+.app-title { font-weight: 600; font-size: 15px; }
+.groups { display: flex; gap: 4px; flex: 1; }
+.group-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.group-btn.active { background: var(--accent); color: #fff; }
+.mcp-dot { font-size: 12px; color: var(--muted); }
+.mcp-dot.on { color: var(--done); }
+
+/* 主区：左待办 / 右磁贴 */
+.content { display: flex; flex: 1; min-height: 0; }
+.left { flex: 1.4; padding: 16px; overflow-y: auto; }
+.right { flex: 1; padding: 16px; border-left: 1px solid var(--border); overflow-y: auto; background: var(--panel); }
+.right-title { margin: 0 0 12px; font-size: 13px; color: var(--muted); font-weight: 600; }
+
+/* 快速记录 */
+.capture-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+}
+.capture-input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+/* 待办列表 */
+.todo-groups { margin-top: 16px; }
+.todo-section { margin-bottom: 18px; }
+.todo-section-title { font-size: 12px; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+.todo-list { list-style: none; margin: 0; padding: 0; }
+.todo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.todo-check { accent-color: var(--done); width: 16px; height: 16px; cursor: pointer; }
+.todo-title { flex: 1; font-size: 14px; user-select: text; }
+.badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.badge-today { color: var(--accent); border-color: var(--accent); }
+.badge-source { color: var(--muted); }
+.todo-act {
+  border: none; background: transparent; color: var(--muted);
+  cursor: pointer; font-size: 12px; padding: 2px 6px; border-radius: 6px;
+}
+.todo-act:hover { background: var(--bg); }
+.todo-del:hover { color: #ff453a; }
+.todo-empty, .todo-error { color: var(--muted); font-size: 13px; margin-top: 16px; }
+.todo-error { color: #ff453a; }
+
+/* 磁贴 */
+.tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.tile { position: relative; }
+.tile-btn {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 16px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+.tile-btn:hover { border-color: var(--accent); }
+.tile-icon { font-size: 22px; }
+.tile-label { font-size: 13px; }
+.tile-ops {
+  position: absolute; top: 4px; right: 4px;
+  display: flex; gap: 2px; opacity: 0; transition: opacity .12s;
+}
+.tile:hover .tile-ops { opacity: 1; }
+.tile-op {
+  border: none; background: var(--panel); color: var(--muted);
+  width: 20px; height: 20px; border-radius: 6px; cursor: pointer; line-height: 1;
+}
+.tile-del:hover { color: #ff453a; }
+.tile-add {
+  margin-top: 12px; width: 100%; padding: 10px;
+  border: 1px dashed var(--border); border-radius: 12px;
+  background: transparent; color: var(--muted); cursor: pointer;
+}
+.status-line { font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+/* 磁贴编辑器 */
+.tile-editor {
+  margin-top: 12px; padding: 14px; border: 1px solid var(--border);
+  border-radius: 12px; background: var(--bg); display: flex; flex-direction: column; gap: 10px;
+}
+.tile-editor h3 { margin: 0; font-size: 14px; }
+.tile-field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.tile-field input, .tile-field select {
+  padding: 8px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--panel); color: var(--text); font-size: 13px;
+}
+.tile-editor-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.tile-editor-actions button {
+  padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--panel); color: var(--text); cursor: pointer;
+}
+.tile-editor-actions .primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tile-editor-actions button:disabled { opacity: .5; cursor: default; }

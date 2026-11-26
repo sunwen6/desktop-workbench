@@ -13,6 +13,8 @@ use tauri::{
 };
 
 pub mod commands;
+pub mod commands_app;
+pub mod commands_pick;
 pub mod commands_tile;
 pub mod mcp;
 pub mod tile;
@@ -142,6 +144,7 @@ pub fn app_data_dir() -> PathBuf {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        .plugin(tauri_plugin_dialog::init())
         .manage({
             let dir = app_data_dir();
             let (_tiles, todos) = commands_tile::open_stores(&dir).expect("打开本地 SQLite 失败");
@@ -169,6 +172,8 @@ pub fn run() {
             commands_tile::tile_reorder,
             commands_tile::tile_open,
             commands_tile::mcp_status,
+            commands_app::app_list,
+            commands_pick::pick_folder,
         ])
         .setup(|app| {
             // 注册全局快捷键 ⌥Space → window_toggle / 聚焦记录框

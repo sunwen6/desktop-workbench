@@ -97,6 +97,17 @@ export const reorderTile = (id: string, order: number): Promise<void> =>
 export const openTile = (id: string): Promise<void> =>
   invoke(IPC_TILE.tileOpen, { id });
 
+// ---- 选择器（新增磁贴时点选，不手敲路径） ----
+/** 单个可选应用：bundle id + 显示名 */
+export interface AppEntry {
+  bundle_id: string;
+  name: string;
+}
+/** 枚举本机已安装应用（/Applications + /System/Applications，按 bundle id 去重） */
+export const listApps = (): Promise<AppEntry[]> => invoke("app_list");
+/** 弹出原生目录选择框，返回选中路径；用户取消返回 null */
+export const pickFolder = (): Promise<string | null> => invoke("pick_folder");
+
 export const listTodos = (filter: TodoFilter = {}): Promise<Todo[]> =>
   invoke(IPC.todoList, { filter });
 

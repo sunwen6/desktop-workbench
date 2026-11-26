@@ -6,32 +6,41 @@
     <title>待办工作台</title>
     <style>
       :root {
-        color-scheme: light dark;
-        --bg: #f5f5f7;
-        --panel: #ffffff;
-        --text: #1d1d1f;
-        --muted: #6e6e73;
-        --accent: #0a84ff;
-        --border: #d2d2d7;
-        --done: #30d158;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #1c1c1e;
-          --panel: #2c2c2e;
-          --text: #f5f5f7;
-          --muted: #98989d;
-          --border: #3a3a3c;
-        }
+        color-scheme: dark;
+        /* 冷深空底 + 薄荷青强调：科技感与清新感的平衡 */
+        --bg: #0a1416;
+        --bg-deep: #060d0f;
+        --panel: rgba(18, 34, 38, 0.62);
+        --panel-solid: #10201f;
+        --text: #e8f4f2;
+        --muted: #7f9a99;
+        --accent: #3fe0c5;
+        --accent-soft: rgba(63, 224, 197, 0.14);
+        --accent-line: rgba(63, 224, 197, 0.42);
+        --border: rgba(126, 176, 172, 0.16);
+        --done: #3fe0c5;
+        --danger: #ff6b6b;
+        --radius: 14px;
       }
       * { box-sizing: border-box; }
       html, body, #root { height: 100%; margin: 0; }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", sans-serif;
-        background: var(--bg);
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Text",
+          "Segoe UI", sans-serif;
         color: var(--text);
         -webkit-font-smoothing: antialiased;
+        font-feature-settings: "ss01", "cv11";
         user-select: none;
+        /* 分层背景：深空底 -> 顶部薄荷辉光 -> 细网格 -> 噪点 */
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(1100px 520px at 82% -8%, rgba(63, 224, 197, 0.13), transparent 62%),
+          radial-gradient(760px 420px at 8% 108%, rgba(64, 150, 238, 0.1), transparent 60%),
+          linear-gradient(rgba(126, 176, 172, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(126, 176, 172, 0.045) 1px, transparent 1px),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        background-size: auto, auto, 34px 34px, 34px 34px, auto;
+        overflow: hidden;
       }
     </style>
   </head>

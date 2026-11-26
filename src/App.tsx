@@ -83,49 +83,54 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <span className="app-title">待办工作台</span>
-        <nav className="groups" aria-label="分组筛选">
-          {GROUPS.map((g) => (
-            <button
-              key={g.key}
-              className={`group-btn ${group === g.key ? "active" : ""}`}
-              aria-pressed={group === g.key}
-              onClick={() => setGroup(g.key)}
-            >
-              {g.label}
-            </button>
-          ))}
-        </nav>
         <span className={`mcp-dot ${mcp.running ? "on" : "off"}`} title={mcp.running ? `MCP 运行中 :${mcp.port}` : "MCP 未运行"}>
           {mcp.running ? "● MCP 运行中" : "○ MCP 未运行"}
         </span>
       </header>
 
-      <main className="content">
-        <section className="left">
-          <QuickCapture onCreate={add} />
-          <TodoList
-            todos={todos}
-            onComplete={complete}
-            onDelete={remove}
-            onMoveToday={(id) => void setStatus(id, "Today")}
-            error={error}
-            loading={loading}
-          />
-        </section>
+      <div className="body">
+        <aside className="sidebar">
+          <nav className="groups" aria-label="分组筛选">
+            {GROUPS.map((g) => (
+              <button
+                key={g.key}
+                className={`group-btn ${group === g.key ? "active" : ""}`}
+                aria-pressed={group === g.key}
+                onClick={() => setGroup(g.key)}
+              >
+                {g.label}
+              </button>
+            ))}
+          </nav>
+        </aside>
 
-        <aside className="right">
-          <h2 className="right-title">快捷磁贴</h2>
-          <TileGrid
-            tiles={tiles}
-            onOpen={(id) => void openTile(id)}
-            onAdd={() => setEditorOpen(true)}
-            onDelete={(id) => void handleDeleteTile(id)}
-            onReorder={(id, order) => void handleReorderTile(id, order)}
-          />
+        <main className="content">
+          <section className="left">
+            <QuickCapture onCreate={add} />
+            <TodoList
+              todos={todos}
+              onComplete={complete}
+              onDelete={remove}
+              onMoveToday={(id) => void setStatus(id, "Today")}
+              error={error}
+              loading={loading}
+            />
+          </section>
+
+          <aside className="right">
+            <h2 className="right-title">快捷磁贴</h2>
+            <TileGrid
+              tiles={tiles}
+              onOpen={(id) => void openTile(id)}
+              onAdd={() => setEditorOpen(true)}
+              onDelete={(id) => void handleDeleteTile(id)}
+              onReorder={(id, order) => void handleReorderTile(id, order)}
+            />
           <TileEditor open={editorOpen} onClose={() => setEditorOpen(false)} onSubmit={handleAddTile} />
           <p className="status-line">状态：本地已保存</p>
-        </aside>
-      </main>
+          </aside>
+        </main>
+      </div>
     </div>
   );
 }
